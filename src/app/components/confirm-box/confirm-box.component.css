@@ -1,0 +1,35 @@
+.btn-parent{
+    margin-top: 25px;
+}
+
+.btn-ok{
+    margin-right: 10px;
+    padding: 6px 20px;
+}
+
+.btn-cancel{
+    background-color: #6d7f8e !important;
+}
+
+.mat-parent{
+    padding: 5px 10px;
+}
+
+.mat-parent p{
+    font-size: 14px;
+    font-weight: 400;
+}
+
+button{
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #fff;
+    padding-top: 4px !important;
+}
+
+button:focus {
+    outline: none !important;
+    box-shadow: none;
+  }

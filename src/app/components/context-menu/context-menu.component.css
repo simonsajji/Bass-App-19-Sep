@@ -1,0 +1,15 @@
+.contextmenu{
+    position: absolute;
+    bottom:-70%;
+    right:-30%;
+    background-color: white;
+    border: 0.01rem solid rgb(188, 188, 188);
+    border-radius: 5px;
+    color: black;
+    width: 100px;
+    z-index:3;
+}
+
+.contextmenu:hover{
+    background-color: whitesmoke;
+}

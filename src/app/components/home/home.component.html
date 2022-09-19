@@ -1,0 +1,25 @@
+<div class="header-area">
+    <app-header (logEvent)="logout($event)" [currentAccount]="currentAccount"></app-header>
+</div>
+<div *ngIf="!branchData" class="d-flex w-100  align-center j-center loader">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="details-body bg-ws p-t-0 m-t-10" *ngIf="isUserLoggedIn && branchData" >
+    <div class=" m-r-20 h-100  container-fluid d-flex ">
+        <div class="w-25 m-b-20 l-bar  left-menu m-t-30 ">
+            <app-left-menu [branchData]="branchData"   [selectedBranch]="selectedBranch" [selectedRoute]="selectedRoute"
+            [branchView]="branchView" [locationsView]="locationsView" [routesView]="routesView" 
+            (fetchAllRoutesEvent)="getAllRoutesofBranch($event)" 
+            (selectRouteEvent)="selectRoute($event)"  (branchSelectEvent)="currentbranchSelect($event)" (selectBranchLocationEvent)="selectBranchLocation($event)"></app-left-menu>
+        </div>
+        <!--  -->
+        <div class=" w-75 p-t-5 min-ht-container m-l-20 m-b-0 p-relative">
+            <app-details [branches]="branches" [branchData]="branchData" [loader]="loader"
+                [selectedBranch]="selectedBranch" [dataloader]="dataloader" [selectedRoute]="selectedRoute"
+                [branchView]="branchView" [locationsView]="locationsView" [routesView]="routesView"
+                 (onRightClkEvnt)="onRightClick($event)"
+                (selectRouteEvent)="selectRoute($event)" (selectLocationEvent)="selectLocationCard($event)">
+            </app-details>
+        </div>
+    </div>
+</div>

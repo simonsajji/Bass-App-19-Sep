@@ -1,0 +1,124 @@
+
+    <div class="item-box" (dragover)="getDivPosition($event)" (dragleave)="leaveDropArea($event)">
+        <div class="  m-b-10  p-t-10 p-b-15  ctr">
+            <div class="d-flex align-center search-bar p-l-10 p-r-10 p-t-5">
+                <input class="f-s-13 p-5" type="text" placeholder="Search">
+                <div class="s-button d-flex align-center j-center"><i class="fa fa-search fa-flip-horizontal"
+                        style="color:rgb(242, 242, 242) !important;"></i></div>
+            </div>
+            <div class="w-100 m-t-15 m-l-0 m-r-0  ">
+                <ng-container *ngFor="let branch of branchData">
+                    <div class="branch flex-column m-t-10">
+                        <div class="d-flex  align-center  w-100 p-l-10 p-t-2 p-b-2"
+                            [ngClass]="(branch?.BranchId==selectedBranch?.BranchId && branchView)? 'selected' : ''">
+                            <div class="m-r-8 icon d-flex align-center j-center">
+                                <img class="c-pointer" (click)="shrinkBranch(branch)" *ngIf="branch?.dropped"
+                                    src="assets/icons/down2.png" alt="" height="65%" width="65%">
+                                <img class="c-pointer" (click)="expandBranch(branch)" *ngIf="!branch?.dropped"
+                                    src="assets/icons/right2.png" alt="" height="65%" width="65%">
+                            </div>
+                            <div (click)="currentbranchSelect(branch)" [ngClass]="(branchView && selectedBranch?.BranchId==branch?.BranchId)? 'selected-item ' : ''"
+                                class="route d-flex align-center c-pointer">
+                                <img src="assets/icons/branch.png" alt="" height="18px" width="16px">
+                                <div class="m-l-2 f-s-14 f-w-500" >{{branch?.BranchName}}</div>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="branch?.dropped">
+                            <div class="p-l-15 m-t-5 f-s-13 p-t-2 p-b-2" title="This feature is coming soon">
+                                <div class="d-flex w-100 align-center ">
+                                    <div class="fa fa-angle-right angle fa-fw"></div>
+                                    <div class="d-flex align-center  w-100"><img src="assets/icons/machine2.png"
+                                            alt="" height="15px" width="17px"> <span class="m-l-3 hover-highlight c-pointer disable">Machinery <span class="count">(204)</span> </span> </div>
+                                </div>
+                            </div>
+                            <div class="p-l-15 m-t-5 f-s-13 p-t-2 p-b-2" title="This feature is coming soon">
+                                <div class="d-flex w-100 align-center ">
+                                    <div class="fa fa-angle-right angle fa-fw"></div>
+                                    <div class="d-flex align-center  w-100"><img
+                                            src="assets/icons/dollar6.png" alt="" height="17px"
+                                            width="18px"> <span class="m-l-3 hover-highlight disable c-pointer">Collections <span class="count">($14314)</span></span> </div>
+                                </div>
+                            </div>
+                            <div class="p-l-15 m-t-5 f-s-13 p-t-2 p-b-2" title="This feature is coming soon">
+                                <div class="d-flex w-100 align-center ">
+                                    <div class="fa fa-angle-right angle fa-fw"></div>
+                                    <div class="d-flex align-center  w-100"><img src="assets/icons/user.png"
+                                            alt="" height="14px" width="17px"> <span class="m-l-3 hover-highlight disable c-pointer">Technicians
+                                                <span class="count">(10)</span></span> </div>
+                                </div>
+                            </div>
+                            <div class="p-l-15 m-t-5 f-s-13 p-t-2 p-b-2" title="This feature is coming soon">
+                                <div class="d-flex w-100 align-center ">
+                                    <div class="fa fa-angle-right angle fa-fw"></div>
+                                    <div class="d-flex align-center  w-100 m-r-2 "><img
+                                            src="assets/icons/route2.png" alt="" height="19px" width="18px">
+                                        <span class="m-l-4 max-h hover-highlight disable c-pointer">Routes <span class="count">(24)</span></span> </div>
+                                </div>
+                            </div>
+                            <div class=" m-t-5 f-s-13 p-t-2 p-b-2" id="drp" >
+                                <div class="p-l-15 d-flex w-100 align-center "
+                                    [ngClass]="(branch?.showRoutesList && locationsView) ? 'selected' : ''">
+                                    <div (click)="getAllRoutesofBranch(branch,'dropView')"
+                                        *ngIf="!branch?.routesDropped"
+                                        class="fa fa-angle-right angle fa-fw c-pointer hover-highlight"></div>
+                                    <div (click)="branch.routesDropped=false" *ngIf="branch?.routesDropped"
+                                        class="fa fa-angle-down angle fa-fw c-pointer hover-highlight"></div>
+                                    <div (click)="selectBranchLocation(branch)"
+                                        class="d-flex align-bottom  w-100 p-t-5 p-b-5 c-pointer "><img
+                                            src="assets/icons/location3.png" alt="" height="14px" width="17px"
+                                            class="hover-highlight"> <span class="m-l-2 max-h hover-highlight"
+                                            [ngClass]="(branch?.showRoutesList && locationsView)? 'selected-item ' : ''">Locations
+                                            <span class="count">({{branch?.LocationCount}})</span> </span> </div>
+                                </div>
+                                <ng-container *ngIf="branch?.routesDropped">
+                                    <div class="p-l-30 d-flex w-100 align-center m-t-5 ">
+                                        <i
+                                            class="fa fa-angle-right f-s-14 c-pointer p-r-2 fa-fw hover-highlight p-t-5 p-b-5"></i>
+                                        <div
+                                            class="unrouted d-flex align-bottom   m-r-10 w-100 p-t-5 p-b-5 f-w-500 f-s-12 hover-highlight">
+                                            <img src="assets/icons/unrouted2.png" alt="" height="13px"
+                                                width="15px"> <span class="m-l-2">Unrouted</span> </div>
+                                    </div>
+                                    <div   id="circle"  class="v-hidden circle d-flex align-center j-center">{{draggeditem?.length}}</div>
+                                    <div class="f-s-13 p-b-3 p-t-3 flex-column p-relative" *ngFor="let route of branch?.Routes"
+                                        (drop)="itemDrop($event, route)" (dragover)="allowDrop($event,route)" (dragleave)="dropPoint=null;dragActive=false"
+                                        [ngClass]="{'drop-point' : dropPoint?.RouteId==route.RouteId,'selected selected-item':selectedRoute?.RouteId==route?.RouteId }">
+                                        
+                                        <div class="p-l-30 d-flex w-100 align-center ">
+                                            <i (click)="getLocationsofRoute(route)"
+                                                *ngIf="!route?.isrouteDropped"
+                                                class="fa fa-angle-right f-s-14 c-pointer p-r-2 fa-fw hover-highlight p-t-2 p-b-2"></i>
+                                            <i (click)="route.isrouteDropped=!route?.isrouteDropped"
+                                                *ngIf="route?.isrouteDropped"
+                                                class="fa fa-angle-down f-s-14 c-pointer p-r-2 fa-fw hover-highlight p-t-2 p-b-2"></i>
+                                            <div (click)="selectRoute(route)"
+                                                class="d-flex align-center  w-100 p-t-7 p-b-5  hover-highlight c-pointer text-overfl p-r-5"
+                                                [ngClass]="route.isrouteDropped ? 'dropped-text' : ''"><img
+                                                    src="assets/icons/route2.png" alt="" height="18px"
+                                                    width="16px"> <span
+                                                    class="m-l-5 f-s-11 text-overfl p-r-5 f-w-400 max-h">{{route?.RouteName}}</span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="route?.Locations?.length==0 && route?.isrouteDropped"
+                                            class="d-flex align-center j-center c-gr f-s-11 empty-menu ">
+                                            No Locations to Show
+                                        </div>
+                                        <ng-container
+                                            *ngIf="route?.Locations?.length > 0 && route?.isrouteDropped">
+                                            <div *ngFor="let location of route?.Locations"
+                                                class="p-l-50 d-flex align-bottom  w-100 p-t-4 m-l-6 p-b-4 c-gr">
+                                                <img src="assets/icons/route.png" alt="" height="10px"
+                                                    width="12px">
+                                                <div class="m-l-4 d-flex text-overfl f-s-11">
+                                                    {{location?.StoreName}}</div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
